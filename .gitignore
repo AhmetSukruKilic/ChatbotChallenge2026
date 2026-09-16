@@ -2,3 +2,6 @@
 .venv/
 venv/
 __pycache__/
+
+# Submission zips bundle .env, so they contain your API key.
+*.zip
