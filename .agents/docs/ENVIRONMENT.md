@@ -34,8 +34,12 @@ Distinguishing 403 from a bad key — same chat URL, three requests:
 
 So: **401 = key problem. 403 = network/policy problem, key already authenticated.**
 
-Fix: VPN off, rerun. Still 403 off-VPN means the key's product subscription or an IP
-allowlist, which is an organizer question, not a code change.
+Fix: VPN off, rerun. Confirmed 2026-09-16 — same key, VPN off, `check_setup.py` prints
+`READY` (chat 1.4s, embedding 1.0s). Still 403 off-VPN would mean the key's product
+subscription or an IP allowlist, which is an organizer question, not a code change.
+
+A first off-VPN call can also just sit there with no response while the VPN tears down its
+routes. It is not a hang worth debugging — wait, or rerun.
 
 ## Running
 
