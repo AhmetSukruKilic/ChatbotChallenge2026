@@ -45,6 +45,8 @@ batch it; one call per string is minutes of round trips.
   search keys exact — file, symbol, error code, ID.
 - One home per fact, referenced elsewhere by name. Never explain the same thing twice.
 - Agents commit and push here; no approval round-trip. PRs stay human.
+- No AI attribution anywhere: no `Co-Authored-By` trailer on commits, no "Generated with"
+  line in PR descriptions.
 - Agents do not run anything that calls the gateway — a human runs those (VPN, see below).
 - Never guess credentials, deployment names or gateway config.
 
