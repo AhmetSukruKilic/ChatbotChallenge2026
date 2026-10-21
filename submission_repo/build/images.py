@@ -99,8 +99,9 @@ def describe_one(im: dict, url: str, deployment: str) -> str:
                        resp.content, mime)
 
 
-HIGH_VALUE = re.compile(r"poster|flyer|award|winner|champion|prize|map|floor|venue|room|"
-                        r"makerspace|plan|schedule|rundown|programme|timetable|sign", re.I)
+HIGH_VALUE = re.compile(r"\b(posters?|flyers?|awards?|winners?|champions?|prizes?|maps?|floor ?plans?|"
+                        r"venues?|rooms?|makerspace|schedule|rundown|programme|timetable|signs?|"
+                        r"signage|leaflet|infographic)\b", re.I)
 
 
 def priority(im: dict) -> int:
