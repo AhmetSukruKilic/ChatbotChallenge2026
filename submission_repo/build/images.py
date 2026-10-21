@@ -131,13 +131,14 @@ def describe_all(images: list[dict], workers: int = 6, limit: int = None,
         tmp.write_text(json.dumps(cache, indent=1, ensure_ascii=False))
         tmp.replace(CACHE_PATH)
 
-    started, done, failed = time.time(), 0, 0
+    started, done, failed, offline = time.time(), 0, 0, 0
     with ThreadPoolExecutor(workers) as pool:
         futures = {pool.submit(describe_one, im, url, deployment): im for im in todo}
         for fut in as_completed(futures):
             im = futures[fut]
             try:
                 text = fut.result()
+                offline = 0
                 with _lock:
                     if text:
                         cache[im["src"]] = text
@@ -148,6 +149,13 @@ def describe_all(images: list[dict], workers: int = 6, limit: int = None,
             except Exception as exc:              # noqa: BLE001
                 failed += 1
                 print("failed:", im["src"][-70:], type(exc).__name__, str(exc)[:120])
+                if "Connection" in type(exc).__name__:
+                    offline += 1
+                    if offline >= 10:
+                        print("10 connection errors in a row: network down. Stopping; rerun resumes.")
+                        for f in futures:
+                            f.cancel()
+                        break
             if (done + failed) % 20 == 0:
                 with _lock:
                     save()
@@ -155,7 +163,7 @@ def describe_all(images: list[dict], workers: int = 6, limit: int = None,
                 print(f"  {done + failed}/{len(todo)}  ({rate:.2f}/s, {failed} failed)")
     save()
     print(f"{done} described, {failed} failed, {len(cache)} cached in total")
-    return cache
+    return cache, done
 
 
 if __name__ == "__main__":
@@ -168,7 +176,9 @@ if __name__ == "__main__":
     args = ap.parse_args()
 
     images = json.loads((DATA / "images.json").read_text())
-    describe_all(images, workers=args.workers, limit=args.limit, use_chat_model=args.chat_model)
-    if not args.no_index:
+    _, new = describe_all(images, workers=args.workers, limit=args.limit, use_chat_model=args.chat_model)
+    if new == 0:
+        print("nothing new described; index left as it is")
+    elif not args.no_index:
         from build.index import build_index
         build_index()

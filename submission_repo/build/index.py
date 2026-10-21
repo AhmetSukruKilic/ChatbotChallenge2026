@@ -10,6 +10,7 @@ build/images.py adds descriptions; nothing is described here.
 import hashlib
 import json
 import re
+import shutil
 from pathlib import Path
 
 from bot.store import add_to_store, get_store
@@ -132,12 +133,21 @@ def build_index():
     texts, metas = t_texts + i_texts, t_metas + i_metas
     ids = [f"t{i}" for i in range(len(t_texts))] + [f"img{i}" for i in range(len(i_texts))]
 
-    store = get_store(path=STORE_PATH, reset=True)
+    # Build beside the live index and swap only on success: a failed
+    # embed (no network, 403) must never leave data/chroma empty.
+    live, fresh, old = Path(STORE_PATH), DATA / "chroma.new", DATA / "chroma.old"
+    for p in (fresh, old):
+        if p.exists():
+            shutil.rmtree(p)
+    store = get_store(path=str(fresh), reset=True)
     add_to_store(store, texts, metas, ids=ids)
+    if live.exists():
+        live.rename(old)
+    fresh.rename(live)
+    shutil.rmtree(old, ignore_errors=True)
     described = sum(m["described"] for m in i_metas)
     print(f"indexed {len(t_texts)} text chunks, {len(i_texts)} image chunks "
           f"({described} described) -> {STORE_PATH}")
-    return store
 
 
 if __name__ == "__main__":

@@ -15,3 +15,5 @@ venv/
 # Transient build files.
 data/*.tmp
 eval/failures.json
+data/chroma.new/
+data/chroma.old/
