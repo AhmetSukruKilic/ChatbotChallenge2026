@@ -149,6 +149,11 @@ def describe_all(images: list[dict], workers: int = 6, limit: int = None,
             except Exception as exc:              # noqa: BLE001
                 failed += 1
                 print("failed:", im["src"][-70:], type(exc).__name__, str(exc)[:120])
+                if "quota" in str(exc).lower():
+                    print("gateway token quota exceeded. Stopping; rerun after the reset resumes.")
+                    for f in futures:
+                        f.cancel()
+                    break
                 if "Connection" in type(exc).__name__:
                     offline += 1
                     if offline >= 10:
