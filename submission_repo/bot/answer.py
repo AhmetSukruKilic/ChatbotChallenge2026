@@ -166,6 +166,25 @@ def clean_answer(question: str, reply: str) -> str:
     return ans or raw
 
 
+def fallback_answer(question: str, chunks: list[dict]) -> str:
+    """No chat (quota, outage): a crude extractive guess beats an empty
+    line, which always scores 0. Counts get the first number in the top
+    chunks; anything else gets the first sentence of the top chunk."""
+    bodies = [c["text"].split("\n", 1)[-1] for c in chunks[:3]]
+    if re.match(r"\s*how many\b", question, re.I):
+        for body in bodies:
+            m = re.search(r"\b\d+\b", body)
+            if m:
+                return m.group(0)
+        return ""
+    for body in bodies:
+        for sentence in re.split(r"(?<=[.!?])\s+|\n", body):
+            sentence = sentence.strip()
+            if len(sentence) >= 3:
+                return sentence[:150]
+    return ""
+
+
 def _answer(question: str, vec: list[float] = None, started: float = None) -> str:
     deadline = (started or time.time()) + CONFIG["budget_s"]
     chunks = []
@@ -178,8 +197,8 @@ def _answer(question: str, vec: list[float] = None, started: float = None) -> st
     try:
         reply = _chat(build_messages(question, chunks), deadline)
     except Exception as exc:                      # noqa: BLE001
-        _log(f"no answer for {question!r}: {type(exc).__name__}")
-        return ""
+        _log(f"chat failed for {question!r}: {type(exc).__name__}; extractive fallback")
+        return fallback_answer(question, chunks)
     return clean_answer(question, reply)
 
 
