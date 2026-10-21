@@ -1,5 +1,5 @@
 # K06 — Baseline run
-Seat: A (teammate) · Depends: K02, K03, K04, K05 · Status: todo
+Seat: B (Ahmet) · Depends: K02, K03, K04, K05 · Status: todo
 Read first: STATE.md, REFERENCE.md, then this.
 
 ## Goal
@@ -7,34 +7,36 @@ Owner's ask:
 
 > how should we plan our rag what do you think I dont wanna blindly develop it
 
-First real number. Every later change is measured against this row. W1 deadline check: Lv1 and
-Lv2 above zero (ADR-K01).
+First real number, on the live gateway. Every later change is measured against this row.
+Rewritten 2026-10-21 for solo + prelim (ADR-K12, ADR-K13): Ahmet runs and commits everything.
 
 ## Non-negotiables
-- Default settings only: chunk 800/100, k 5. No tuning in this task — that is K07.
-- Gateway commands run by a human (ADR-K11).
-- Seat A is the only one who commits `data/chroma` (ADR-K09).
+- Defaults only: chunks as `build/index.py` ships, `CONFIG` as `bot/answer.py` ships. Tuning = K07.
+- Gateway commands run by Ahmet, VPN off (ADR-K11).
+- `main.py`, `bot/llm.py`, `bot/store.py`, `check_setup.py` unchanged.
 
 ## Context (anchors)
-- REFERENCE § Commands — the exact sequence.
-- `submission_repo/eval/experiment_log.csv` — K02 created the header.
-- `submission_repo/eval/failures.json` — read, not committed.
+- REFERENCE § Commands — exact sequence.
+- `submission_repo/data/pages.json`, `data/images.json` — committed by K03.
+- `submission_repo/eval/experiment_log.csv` — created by first `build.evaluate` run.
+- Image descriptions are K08; baseline runs without them (Lv3 near 0 expected).
+
+## Files touched
+- `submission_repo/data/chroma/` (generated), `submission_repo/eval/experiment_log.csv`, this file.
 
 ## Steps
-- [ ] `git pull`; confirm `data/pages.json` from K03 present.
-- [ ] Human, VPN off: `.venv/bin/python check_setup.py` → `READY`.
-- [ ] Human: `.venv/bin/python -m build.index` → `indexed N chunks`.
-- [ ] Human: `.venv/bin/python -m build.evaluate --change "baseline" --who <name>`; paste full output.
-- [ ] Read every failure. Classify each in `## Notes`: `retrieval` (hit N) / `prompt` (hit Y, score < 1) / `image` (Lv3, Lv5 — expected 0) / `reasoning` (Lv4).
-- [ ] Time one single question: `time .venv/bin/python main.py "<a Lv2 question>"` — under 30s.
-- [ ] Commit `eval/experiment_log.csv`, `data/chroma`, `data/index_meta.json`.
+- [ ] `.venv/bin/python check_setup.py` → `READY`.
+- [ ] `.venv/bin/python -m build.index` → `indexed 6421 text chunks, N image chunks (0 described)`.
+- [ ] `.venv/bin/python -m build.evaluate --note "baseline"`; paste output.
+- [ ] Classify each miss in `## Notes`: `retrieval` (miss) / `prompt` (HIT, score < 1) / `image` / `reasoning`.
+- [ ] `time .venv/bin/python main.py "What does FDM stand for in 3D printing?"` → one line, < 30s.
+- [ ] Batch timing: `time .venv/bin/python main.py "q1" "q2" "q3" "q4" "q5"` → 5 lines.
+- [ ] Commit `eval/experiment_log.csv` + `data/chroma`.
 
 ## Definition of done
-- One `baseline` row in `eval/experiment_log.csv`, `L1 > 0` and `L2 > 0`.
-- Failure classification in `## Notes`.
-- If L1 or L2 is 0: row `blocked`, STATE.md `## Open blockers` names the failing class.
+- One `baseline` row; Lv1 > 0 and Lv2 > 0; slowest < 30s.
 
 ## Verification
-`cd submission_repo && .venv/bin/python -c "import csv;r=[x for x in csv.DictReader(open('eval/experiment_log.csv')) if x['change']=='baseline'][-1];print(r);assert float(r['L1'])>0 and float(r['L2'])>0"`
+`cd submission_repo && .venv/bin/python -c "import csv;r=[x for x in csv.DictReader(open('eval/experiment_log.csv')) if x['note']=='baseline'][-1];print(r);assert float(r['slowest_s'])<30 and 'L1=0/' not in r['per_level'] and 'L2=0/' not in r['per_level']"`
 
 ## Notes

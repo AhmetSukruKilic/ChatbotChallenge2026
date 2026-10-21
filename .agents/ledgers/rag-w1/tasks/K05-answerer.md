@@ -1,5 +1,5 @@
 # K05 — Answerer
-Seat: B (Ahmet) · Depends: K01 · Status: todo
+Seat: B (Ahmet) · Depends: K01 · Status: done
 Read first: STATE.md, REFERENCE.md, then this.
 
 ## Goal
@@ -53,3 +53,12 @@ Live (human, VPN off, after K04 live index): `.venv/bin/python main.py "What is 
 Without index (`mv data/chroma /tmp/c`): `.venv/bin/python main.py "What does FDM stand for in 3D printing?"` still answers; then `mv /tmp/c data/chroma`.
 
 ## Notes
+2026-10-21, commit 071d622. Built to ADR-K14 (supersedes ADR-K06).
+- `retrieve()` kept (signature unchanged); runtime uses `retrieve_vec(vec)` = top 8 + top 3 images.
+- Store opened once from absolute `ROOT/data/chroma`; read-only fallback in `bot/store.py` still applies.
+- `_embed`/`_chat` via `bot.llm._client(...).with_options(timeout, max_retries)`; 25s deadline.
+- `clean_answer`: first line, strip `Answer:`/markdown/trailing period; how-many → digits or
+  number word one–twenty.
+- Failures: retrieval error → closed book; chat error twice → `""`; batch never raises.
+- Smoke (fake gateway): `'7'`, `'Make Test Share'`, batch `['7','Make Test Share','Make Test Share']`,
+  IMAGE block present in context, chat down → `['', '']`, embed down → closed-book answer.

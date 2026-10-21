@@ -23,7 +23,7 @@ one retry. `main.py`, `bot/llm.py`, `bot/store.py`, `check_setup.py` stay untouc
 BUILD (our laptops, unlimited time)                 RUNTIME (grader, 30s/question, read-only)
 build/scrape.py ──► data/pages.json  (committed)     main.py (frozen)
                └──► data/images.json (committed)       └─► bot/answer.py rag_answer
-build/index.py  ──► data/chroma      (seat A commits)        ├─ retrieve ─► bot/store.query ─► embed ─┐
+build/index.py  ──► data/chroma      (Ahmet commits)         ├─ retrieve ─► bot/store.query ─► embed ─┐
                └──► data/index_meta.json                     └─ chat ───────────────────────────────┤
 build/evaluate.py ─► eval/experiment_log.csv (committed)                                Azure gateway
                  └─► eval/failures.json (gitignored)          (only network allowed)  ◄──────────────┘
@@ -33,17 +33,18 @@ build/evaluate.py ─► eval/experiment_log.csv (committed)                    
 
 | # | Decision | Chosen | Reason |
 |---|---|---|---|
-| ADR-K01 | Scope | W1 only: Lv1+Lv2 above zero by 23 Sep | images, routing, Lv5 are W2 |
+| ADR-K12 | Scope | prelim: Lv1+Lv2+Lv3 by 21 Oct (supersedes K01) | Lv3 = 40% of prelim |
 | ADR-K02 | Stack | gateway + Chroma only | zero new install risk; hybrid/OCR/rerank wait for W2 |
 | ADR-K03 | Extraction | sitemap first; one content element; `img` records same pass | boilerplate crowds top-k; no second crawl |
 | ADR-K04 | Chunking | heading-first, heading prepended, hash dedup, fallback 800/100 chars | fact stays with its section |
 | ADR-K05 | Metadata | `url title section position kind page_type year` now | new field later = full rebuild |
-| ADR-K06 | Runtime | single shot: top-k, labelled context, temp 0, few-shot, format guard | W1 enough; W2 adds routing |
+| ADR-K14 | Runtime | single shot, top-k + image pool, deadline-bounded calls (supersedes K06) | images not crowded out; 30s hard |
 | ADR-K07 | Failure | retrieval error → closed-book answer; batch isolates per question | `main.py:31-34` blanks whole batch on raise |
 | ADR-K08 | Eval | `build/evaluate.py`: retrieval-hit and answer score split, per level, timing, CSV row, failures file | one change at a time, compared by numbers |
-| ADR-K09 | Index sharing | `pages.json` committed; anyone builds `data/chroma` locally; only seat A commits it | binary files never merge |
-| ADR-K10 | Tests | offline pytest, fake `embed`/`chat`; pytest in `requirements-dev.txt` | agents cannot reach gateway; grader install stays lean |
+| ADR-K13 | Index sharing | solo: Ahmet builds and commits `data/chroma` (supersedes K09) | no second writer |
+| ADR-K16 | Tests | scratch smoke script; pytest deferred (supersedes K10) | deadline day |
 | ADR-K11 | Gateway runs | agent writes the command, human runs it | VPN → 403 (`.agents/docs/ENVIRONMENT.md`) |
+| ADR-K15 | Images | cached vision descriptions, priority order, same index | 5247 images > one evening |
 
 ## Retrieval + generation contract
 
@@ -64,11 +65,15 @@ Judges are human; eval is a proxy. Normalize = lowercase, strip punctuation, dro
 
 ## Phasing / task clusters (see STATE.md ledger)
 
+Prelim (ADR-K12): code K02–K05 → live build + baseline K06 → images K08 → submit K09; K07 tuning if time.
+
 0. Harness (K01)
 1. Parallel build: eval (K02), scrape (K03), index (K04), answer (K05)
 2. Measure: baseline (K06), tuning (K07)
 
 ## Seats
+
+Solo since 2026-10-21 (ADR-K13): every task is Ahmet's. Table kept as history.
 
 | Seat | Person | Tasks |
 |---|---|---|

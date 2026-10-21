@@ -3,7 +3,7 @@
 Paste verbatim for each session. One session = one task. Session has no memory — everything
 lives in this folder.
 
-> Please execute @.agents/ledgers/rag-w1/EXECUTION_PROMPT.md. I am <Ahmet|teammate>.
+> Please execute @.agents/ledgers/rag-w1/EXECUTION_PROMPT.md. I am Ahmet.
 
 ---
 
@@ -15,8 +15,7 @@ You are executing one task from the RAG W1 ledger in `.agents/ledgers/rag-w1/`. 
 
    | Seat | Person | Tasks |
    |---|---|---|
-   | A — index owner | teammate | K03, K04, K06 |
-   | B — answer + eval | Ahmet | K01, K02, K05, K07 |
+   | B — solo (ADR-K13) | Ahmet | all |
 
    Never work a task this table does not give you.
 2. **Preflight.** `git pull --rebase origin main`. `git status --porcelain` not empty → stop, report.
@@ -31,8 +30,8 @@ You are executing one task from the RAG W1 ledger in `.agents/ledgers/rag-w1/`. 
    print them for the human, wait for pasted output (ADR-K11).
 8. **Close.** Fill `## Notes` (≤ 40 lines). Ledger row → `done`. Repoint "Current task".
    Rewrite "Last session ended" (≤ 8 lines, prior entry kept as `Prior:`).
-9. **Commit + push** to `main`: `type(ID): title`. No AI attribution. Seat B never stages
-   `submission_repo/data/chroma`.
+9. **Commit + push** to `main`: `type(ID): title`. No AI attribution. `data/chroma` committed
+   by Ahmet (ADR-K13).
 10. **STOP.** Next task = next session.
 
 ### Blocked mid-task

@@ -1,5 +1,5 @@
 # K01 — Offline test harness
-Seat: B (Ahmet) · Depends: — · Status: todo
+Seat: B (Ahmet) · Depends: — · Status: retired
 Read first: STATE.md, REFERENCE.md, then this.
 
 ## Goal
@@ -49,3 +49,5 @@ the fakes and the runner. No product code changes.
 Expect `N passed`, N ≥ 3. Then `git diff --stat -- requirements.txt bot main.py` prints nothing.
 
 ## Notes
+Retired 2026-10-21 by ADR-K16 (deadline day). Pytest harness moved to STATE.md Backlog.
+Verification that session: scratch smoke script, fake embed/chat, temp Chroma store.

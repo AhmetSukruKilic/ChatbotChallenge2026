@@ -1,5 +1,5 @@
 # K02 — Eval script
-Seat: B (Ahmet) · Depends: K01 · Status: todo
+Seat: B (Ahmet) · Depends: K01 · Status: done
 Read first: STATE.md, REFERENCE.md, then this.
 
 ## Goal
@@ -62,3 +62,10 @@ Live (human, after K04+K05, VPN off): `.venv/bin/python -m build.evaluate --chan
 → 15 lines + totals; `eval/experiment_log.csv` gains one row. Delete that smoke row before K06 commits.
 
 ## Notes
+2026-10-21, commit 071d622. Built without K01 tests (ADR-K16).
+- CLI differs from spec: `python -m build.evaluate [--set FILE] [--note TEXT]`. No `--change/--who`.
+- `score`/`hit` per PLAN § Scoring proxy, stop-words `a an the of and in on to for is at`.
+- Per question: level, score, HIT/miss, seconds, want/got. Totals per level, retrieval, mean, slowest.
+- CSV `eval/experiment_log.csv`: `date note set k k_image total n retrieved per_level mean_s slowest_s`.
+- `eval/failures.json` (gitignored): misses with top-5 `kind distance url`.
+- Not run live yet: K06 runs it.

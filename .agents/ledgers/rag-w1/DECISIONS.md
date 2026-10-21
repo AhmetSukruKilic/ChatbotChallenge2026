@@ -76,3 +76,55 @@ monkeypatch `embed`/`chat`/`requests.get`. No test touches the gateway.
 **Decision:** anything importing a live `bot.llm` call (`check_setup.py`, `main.py`,
 `build.index`, `build.evaluate`) is written out for a human to run; agent waits for pasted output.
 **Consequences:** K06/K07 are pair tasks: agent prepares, human runs, agent records.
+
+## ADR-K12 — 2026-10-21 — Prelim scope: Lv1–Lv3, one session (supersedes ADR-K01)
+
+**Context:** Nothing built by 21 Oct, the preliminary deadline (W0 slide 2: code and vector
+database through Codabench). Prelim weights (W0 slide 4): Lv1 30, Lv2 30, **Lv3 40**, Lv4 0,
+Lv5 0. W1-only scope leaves 40% on the table.
+**Decision:** Scope = Lv1 + Lv2 + Lv3 for the prelim. Image pipeline (`build/images.py`) in.
+Lv4 decomposition/routing and Lv5 photos stay out until the final (28 Oct).
+**Consequences:** ADR-K01 no longer governs; K01–K07 Notes quoting it were true when written.
+
+## ADR-K13 — 2026-10-21 — Solo team, Ahmet owns the index (supersedes ADR-K09)
+
+**Context:** Owner, 2026-10-21: "we are alone no need for teammates". Seat A does not exist, so
+the two-writers binary conflict ADR-K09 guards against cannot happen.
+**Decision:** One seat. Ahmet runs and commits `data/chroma`. `data/pages.json`,
+`data/images.json`, `data/descriptions.json` committed too.
+**Consequences:** ADR-K09 no longer governs. Every task is Ahmet's.
+
+## ADR-K14 — 2026-10-21 — Two retrieval pools, deadline-bounded calls (supersedes ADR-K06)
+
+**Context:** Lv3 answers live in image descriptions, which compete with 6421 text chunks for
+the top k; a text-heavy top 8 can hide every image. `bot.llm.chat`/`embed` take no timeout and
+the openai client defaults to 600s + 2 retries, so one stall breaks the 30s limit.
+**Decision:** Per question: one embed; top `k=8` of any kind + top `k_image=3` with
+`where={"kind": "image"}`, merged by distance, deduped. One `gpt-4o-mini` call, temp 0, 3
+invented few-shot pairs, `IMAGE`/`PAGE` labelled context, `clean_answer` format guard. Calls go
+through `bot.llm._client(...).with_options(timeout, max_retries)` against a 25s per-question
+deadline; chat retried once if time remains. Batch: one embed for all questions, 4 threads.
+**Why not edit `llm.py`:** frozen file (AGENTS.md).
+**Consequences:** ADR-K06 no longer governs. ADR-K07 (degrade, never raise) still holds.
+`answer.py` depends on `bot.llm` private `_client` and `*_URL` names.
+
+## ADR-K15 — 2026-10-21 — Image descriptions cached, priority-ordered, folded into one index
+
+**Context:** Scrape found 5247 images; gpt-5-mini at a few seconds each is hours, more than
+the deadline allows.
+**Decision:** `build/images.py` describes with the vision deployment (`--chat-model` for
+gpt-4o-mini), 6 threads, extraction prompt (type, subject, verbatim text, counts, layout,
+colours) with page title/alt/caption as context. Cache `data/descriptions.json` keyed by
+`src`, saved every 20, resumable. Order by `priority()`: poster/award/map/venue-like names,
+2025+ uploads, PNG, captioned first, so `--limit N` spends budget there. `build/index.py`
+rebuilds the whole store from pages + images + cache; undescribed images with alt ≥ 15 chars
+or a caption are indexed from that text alone.
+**Consequences:** Rerunning `build.images` re-embeds everything (minutes, not hours).
+Coverage grows with each run; nothing is lost on interrupt.
+
+## ADR-K16 — 2026-10-21 — Offline pytest deferred to after prelim (supersedes ADR-K10)
+
+**Context:** Deadline day. Harness (K01) would have gated every task.
+**Decision:** Verify with a scratch smoke script (fake embed/chat, temp store) per session;
+pytest harness moves to backlog.
+**Consequences:** ADR-K10 no longer governs. K01 retired. No committed regression tests yet.

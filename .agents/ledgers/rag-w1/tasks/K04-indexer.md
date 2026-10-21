@@ -1,5 +1,5 @@
 # K04 — Indexer
-Seat: A (teammate) · Depends: K01 · Status: todo
+Seat: A (teammate) · Depends: K01 · Status: done
 Read first: STATE.md, REFERENCE.md, then this.
 
 ## Goal
@@ -46,3 +46,10 @@ Live (human, VPN off, after K03): `.venv/bin/python -m build.index` → `indexed
 `cat data/index_meta.json` shows the same N.
 
 ## Notes
+2026-10-21, commit 071d622. Code done; live build is K06 (gateway).
+- `sections()` splits on `## `; section ≤ 1000 chars = one chunk, else line-packed 800/100.
+- Chunk text `"{title} — {section}\n{body}"`; md5 dedup on normalized body: 6421 text chunks, 3.7M chars.
+- Metadata `url site title section position kind page_type year`; image chunks add `image`, `described`.
+- Ids `t{i}` / `img{i}` (not sha1 of url — rebuild is always full, ids need not be stable).
+- Also folds `data/images.json` + `data/descriptions.json` into the store (ADR-K15).
+- Absolute `data/chroma` path from `__file__`. No `index_meta.json`, no CLI chunk args yet.

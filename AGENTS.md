@@ -61,5 +61,5 @@ batch it; one call per string is minutes of round trips.
 | `devlogs/` | One per finished task, `<TASK-ID>-<slug>.md`, written in the session that did it. |
 | `prompts/` | Reusable prompts. |
 
-Active ledger: [`.agents/ledgers/rag-w1/`](.agents/ledgers/rag-w1/) — W1 scrape, index, answer,
-eval. Start a session with `Please execute @.agents/ledgers/rag-w1/EXECUTION_PROMPT.md. I am <name>.`
+Active ledger: [`.agents/ledgers/rag-w1/`](.agents/ledgers/rag-w1/) — prelim (ADR-K12): scrape, index, images, answer,
+eval, submit. Start a session with `Please execute @.agents/ledgers/rag-w1/EXECUTION_PROMPT.md. I am Ahmet.`

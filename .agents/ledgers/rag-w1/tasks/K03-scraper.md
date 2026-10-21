@@ -1,5 +1,5 @@
 # K03 — Scraper
-Seat: A (teammate) · Depends: K01 · Status: blocked (site URLs)
+Seat: A (teammate) · Depends: K01 · Status: done
 Read first: STATE.md, REFERENCE.md, then this.
 
 ## Goal
@@ -50,3 +50,14 @@ Seat A owns the data. This task turns both Inno Wing sites into `data/pages.json
 `cd submission_repo && .venv/bin/python -m pytest -q tests/test_scrape.py && .venv/bin/python -c "import json;p=json.load(open('data/pages.json'));print(len(p),'pages',sum(len(x['images']) for x in p),'images');assert all(x['text'] and 'sections' in x for x in p)"`
 
 ## Notes
+2026-10-21, commit 071d622. Run by agent (sites public, no gateway).
+- Sites: `https://innowings.engg.hku.hk/`, `https://innoacademy.engg.hku.hk/` (second found in
+  `deprecated/data.json`). Both WordPress: `wp-sitemap.xml` → `posts-post` + `posts-page` sitemaps.
+- Counts: innowings 593 urls, innoacademy 664 → 1163 pages kept (≥ 40 chars), 5247 images (deduped
+  by src minus WP size suffix), 886 posts / 277 pages.
+- Content root: first of `main`, `#content`, `.site-content`, `article`, `body` with > 50 chars,
+  after dropping header/footer/nav/aside + Elementor header/footer/nav widgets.
+- Shape differs from REFERENCE spec: no `sections`/`images` keys; headings kept inline as `## ` lines
+  in `text`; images in separate `data/images.json` with `page_title`, `year`.
+- `year` from `article:published_time`, else URL: 976 of 1163 pages blank (Lv4 problem, not prelim).
+- No tests (ADR-K16).
