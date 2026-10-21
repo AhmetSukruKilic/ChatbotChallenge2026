@@ -11,3 +11,7 @@ venv/
 # output. Do not: the grading machine only has what you commit, and
 # without data/chroma your bot has nothing to retrieve from. Commit it
 # deliberately before you submit.
+
+# Transient build files.
+data/*.tmp
+eval/failures.json

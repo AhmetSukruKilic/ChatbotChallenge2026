@@ -1,10 +1,10 @@
-# Pin these. A different chromadb version cannot read an index built by
-# another one: it raises KeyError: '_type' when reading the stored config.
-# If you hit that, delete data/chroma and sample_chroma and rebuild.
+# Pinned to the versions data/chroma was built and tested with.
+# A different chromadb version cannot read an index built by another one:
+# it raises KeyError: '_type' when reading the stored config.
+# Notebooks need jupyter: see Labs/requirements.txt.
 
-openai>=1.60
+openai==3.14.0
 chromadb==1.5.9
-beautifulsoup4>=4.12
-requests>=2.31
-python-dotenv>=1.0
-jupyter>=1.0
+beautifulsoup4==4.15.0
+requests==2.34.2
+python-dotenv==1.2.3
