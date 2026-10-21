@@ -1,0 +1,212 @@
+[
+ {
+  "level": 2,
+  "question": "What is the build volume of the Bambu Lab H2D 3D printer at the Innovation Wing?",
+  "answer": "350 x 320 x 325 mm³",
+  "url": "https://innowings.engg.hku.hk/innowing1/equipment/",
+  "evidence": ": 350 x 320 x 325 mm³"
+ },
+ {
+  "level": 2,
+  "question": "How long is each booking slot for the CNC milling machine at the Innovation Wing?",
+  "answer": "2 hours",
+  "url": "https://innowings.engg.hku.hk/innowing1/equipment/",
+  "evidence": "Each booking slot spans\n2 hours"
+ },
+ {
+  "level": 2,
+  "question": "How far in advance must the Oculus Quest 2 headset be booked at the Innovation Wing?",
+  "answer": "at least 2 days in advance",
+  "url": "https://innowings.engg.hku.hk/innowing1/equipment/",
+  "evidence": "Please make the booking at least 2 days in advance"
+ },
+ {
+  "level": 2,
+  "question": "Which two materials must never be laser cut on the Innovation Wing's acrylic laser cutter because they may generate toxic fumes?",
+  "answer": "PVC and Teflon",
+  "url": "https://innowings.engg.hku.hk/acrylic/",
+  "evidence": "Do not laser heat-sensitive surfaces or materials that may generate toxic fumes, such as PVC and Teflon."
+ },
+ {
+  "level": 2,
+  "question": "What is the optical resolution of the MicroArch S240 ultra-high resolution 3D printer at the Innovation Wing?",
+  "answer": "10μm",
+  "url": "https://innowings.engg.hku.hk/innowing1/equipment/",
+  "evidence": "Optical resolution: 10μm"
+ },
+ {
+  "level": 2,
+  "question": "What are the Monday-to-Friday opening hours of the Inno Wing Two exhibition area for visitors?",
+  "answer": "9:00 a.m. – 7:00 p.m.",
+  "url": "https://innowings.engg.hku.hk/innowing2/visitors/rules/",
+  "evidence": "Monday to Friday: 9:00 a.m. – 7:00 p.m."
+ },
+ {
+  "level": 2,
+  "question": "How much is the refundable deposit required to secure Innovation Wing membership?",
+  "answer": "HKD $300",
+  "url": "https://innowings.engg.hku.hk/innowing1/membership/",
+  "evidence": "A refundable deposit of HKD $300 is required to secure the membership of the Innovation Wing."
+ },
+ {
+  "level": 2,
+  "question": "Where is the fire assembly point of Innovation Wing One?",
+  "answer": "Top of Suen Yat Sun Step",
+  "url": "https://innowings.engg.hku.hk/innowing1/membership/",
+  "evidence": "Fire assembly point: Top of Suen Yat Sun Step"
+ },
+ {
+  "level": 2,
+  "question": "What is the maximum capacity of the Innovation Wing Two exhibition area for events, including on-site staff?",
+  "answer": "30 person",
+  "url": "https://innowings.engg.hku.hk/innowing2/venue/",
+  "evidence": "The max capacity for the venue is 30 person including the on-site staff."
+ },
+ {
+  "level": 2,
+  "question": "What are the dimensions (W x H) of the high resolution LED wall in Innovation Wing Two?",
+  "answer": "6.6 x 2.4 m",
+  "url": "https://innowings.engg.hku.hk/innowing2/venue/",
+  "evidence": "Dimension [W x H]: 6.6 x 2.4 m"
+ },
+ {
+  "level": 2,
+  "question": "What is the maximum length of an Inno Wing TechTalk, not counting the discussion time?",
+  "answer": "30 min",
+  "url": "https://innowings.engg.hku.hk/innowing2/techtalk/schedule_techtalk/",
+  "evidence": "Each talk lasts a maximum of 30 min with an additional 15 min for discussion."
+ },
+ {
+  "level": 2,
+  "question": "On which day of the week are Inno Wing Young Scholar TechTalks held?",
+  "answer": "Tuesdays",
+  "url": "https://innowings.engg.hku.hk/innowing2/techtalk/schedule_techtalk/",
+  "evidence": "For young scholar TechTalk (Tuesdays), both speakers and moderators should be senior research students or a postdoc."
+ },
+ {
+  "level": 2,
+  "question": "In which building is Tam Wing Fan Innovation Wing Two located?",
+  "answer": "Run Run Shaw Building",
+  "url": "https://innowings.engg.hku.hk/iw2-opening-ceremony/",
+  "evidence": "Innovation Wing Two is located at G/F of Run Run Shaw Building."
+ },
+ {
+  "level": 2,
+  "question": "Which two HKU Robocon teams won the championship and 2nd runner-up at the Robocon 2025 Hong Kong Contest?",
+  "answer": "Virtus and Sapientia",
+  "url": "https://innowings.engg.hku.hk/robocon/",
+  "evidence": "The Robocon 2025 Hong Kong Contest wrapped up with a bang, with our Virtus and Sapientia teams clinching the championship and 2nd runner-up!"
+ },
+ {
+  "level": 2,
+  "question": "What is the weekly token quota for the Qwen Plus API key that Innovation Wing provides to Student Interest Groups?",
+  "answer": "1 million tokens per week",
+  "url": "https://innowings.engg.hku.hk/innowing1/cloudservice/",
+  "evidence": "Qwen Plus: 1 million tokens per week"
+ },
+ {
+  "level": 2,
+  "question": "How many computers with CAD software are installed in the Innovation Wing's Digital Learning Studio, according to the venue floor plan?",
+  "answer": "29",
+  "url": "https://innoacademy.engg.hku.hk/venue/",
+  "evidence": "29 computers with CAD software installed."
+ },
+ {
+  "level": 2,
+  "question": "At most how many seats can each Innovation Wing event hall (Hall A or Hall B) accommodate in a seminar setting?",
+  "answer": "60 seats",
+  "url": "https://innoacademy.engg.hku.hk/venue/",
+  "evidence": "Each event hall can accommodate at most 60 seats if it is a seminar setting."
+ },
+ {
+  "level": 2,
+  "question": "What is the net usable area of Makerspace assembling area 1 on the G/F of the Innovation Wing?",
+  "answer": "153 square meter",
+  "url": "https://innoacademy.engg.hku.hk/venue/",
+  "evidence": "Makerspace assembling area 1 | Open access for Innovation Wing users | 153 square meter"
+ },
+ {
+  "level": 2,
+  "question": "What is the normal maximum amount funded to an individual project under the Funding Scheme for student projects/activities by Tam Wing Fan Innovation Fund?",
+  "answer": "HK$100,000",
+  "url": "https://innoacademy.engg.hku.hk/funding-scheme/",
+  "evidence": "maximum of HK$100,000"
+ },
+ {
+  "level": 2,
+  "question": "Under the Tam Wing Fan Innovation Fund funding scheme, what proportion of team members must be HKU Engineering undergraduates?",
+  "answer": "at least 50%",
+  "url": "https://innoacademy.engg.hku.hk/funding-scheme/",
+  "evidence": "at least 50% of team members are HKU Engineering undergraduates"
+ },
+ {
+  "level": 2,
+  "question": "By what date must applications for the October 2026 round of the Tam Wing Fan Innovation Fund funding scheme reach the Innovation Academy?",
+  "answer": "October 30 2026",
+  "url": "https://innoacademy.engg.hku.hk/funding-scheme/",
+  "evidence": "by October 30 2026 (Friday):"
+ },
+ {
+  "level": 2,
+  "question": "On what date was the 10th Engineering Inno Show held?",
+  "answer": "April 30, 2025",
+  "url": "https://innoacademy.engg.hku.hk/innoshow10/",
+  "evidence": "April 30, 2025 (Wednesday), 2:00pm – 5:00pm"
+ },
+ {
+  "level": 2,
+  "question": "Through the Inno Show Award, up to how many student teams can the Dean's Innovation and Entrepreneurship Fund support to join international design competitions?",
+  "answer": "five",
+  "url": "https://innoacademy.engg.hku.hk/innoshow11/",
+  "evidence": "HK$100K to support a maximum of five student teams"
+ },
+ {
+  "level": 2,
+  "question": "On what date was the Pitch New Tech Ideas 2025 pitching contest held?",
+  "answer": "March 26, 2025",
+  "url": "https://innoacademy.engg.hku.hk/pitching_2025/",
+  "evidence": "Pitching Contest | 2:00-4:30 pm on March 26, 2025 (Wednesday)"
+ },
+ {
+  "level": 2,
+  "question": "What cash prize does \"The Best Presenter\" receive in Pitch New Tech Ideas 2025?",
+  "answer": "HK$1,000",
+  "url": "https://innoacademy.engg.hku.hk/pitching_2025/",
+  "evidence": "cash prize of HK$1,000."
+ },
+ {
+  "level": 2,
+  "question": "On what date was the Robot Arm Challenge 2025 held?",
+  "answer": "November 5, 2025",
+  "url": "https://innoacademy.engg.hku.hk/robotarm2025/",
+  "evidence": "Date: November 5, 2025 (Wednesday)"
+ },
+ {
+  "level": 2,
+  "question": "What were the dates of the Innovation Academy's UK Study Tour in 2025?",
+  "answer": "October 12 to 19, 2025",
+  "url": "https://innoacademy.engg.hku.hk/studytour/studytourukoct2025/",
+  "evidence": "Date: October 12 to 19, 2025 (both dates inclusive)"
+ },
+ {
+  "level": 2,
+  "question": "What was the maximum number of Inno Wing members on the Singapore Study Tour in March 2025?",
+  "answer": "16",
+  "url": "https://innoacademy.engg.hku.hk/studytour/sintour2025/",
+  "evidence": "a maximum of 16 Inno Wing members to be accompanied by staff/tutors/student research assistants ("
+ },
+ {
+  "level": 2,
+  "question": "Who shared industry insights on AI and Digital Innovation Opportunities at the Inno Wing Carnival on November 29, 2024?",
+  "answer": "Mr Dongliang Guo",
+  "url": "https://innoacademy.engg.hku.hk/inno-wing-carnival-2025/",
+  "evidence": "Mr Dongliang Guo, Vice President of Product and Solution, Alibaba Cloud International"
+ },
+ {
+  "level": 2,
+  "question": "How many teams advance to the final round of the AI Chatbot Challenge – Inno Trivia?",
+  "answer": "5",
+  "url": "https://innoacademy.engg.hku.hk/aichallenge/",
+  "evidence": "Up to 20 teams accepted; 5 advance to the final."
+ }
+]
